@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar peliculas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="balao">
+        <h2>Peliculas Compativeis</h2>
+        <div style="display: flex; align-items: center; gap: 5px;">
+            <input type="text" id="searchInput" placeholder="Digite para pesquisar">
+            <button id="clearBtn" onclick="clearInput()">X</button>
+            <button id="searchBtn" onclick="searchItem()">Pesquisar</button>
+        </div>
+        <p id="errorMessage">Digite um item antes de pesquisar</p>
+        <p id="notFoundMessage">Item não encontrado</p>
+
+        <!-- Lista de itens (inicialmente oculta) -->
+        <ul id="itemList" style="display: none; margin-top: 30px;">
+            <!--samsung-->
+            <li data-id="1">Samsung A01</li>
+            <li data-id="2">Samsung A02</li>
+            <li data-id="3">Samsung A02S</li>
+            <li data-id="4">Samsung A03S</li>
+            <li data-id="5">Samsung A03 Core</li>
+            <li data-id="6">Samsung A03 </li>
+            <li data-id="7">Samsung A04</li>
+            <li data-id="8">Samsung A5</li>
+            <li data-id="9">Samsung A7 2016</li>
+            <li data-id="10">Samsung A7 2018 </li>
+            <li data-id="11">Samsung A8 Plus</li>
+            <li data-id="12">Samsung A9 2018</li>
+            <li data-id="13">Samsung A10 </li>
+            <li data-id="14">Samsung A10S </li>
+            <li data-id="15">Samsung A11 </li>
+            <li data-id="16">Samsung A12 </li>
+            <li data-id="17">Samsung A13</li>
+            <li data-id="18">Samsung A14 </li>
+            <li data-id="19">Samsung A20</li>
+            <li data-id="20">Samsung A20S </li>
+            <li data-id="21">Samsung A21</li>
+            <li data-id="22">Samsung A21S </li>
+            <li data-id="23">Samsung A22 4G </li>
+            <li data-id="24">Samsung A22 5G</li>
+            <li data-id="25">Samsung A23 </li>
+            <li data-id="26">Samsung A30 </li>
+            <li data-id="27">Samsung A30s</li>
+            <li data-id="28">Samsung A31</li>
+            <li data-id="29">Samsung A32 </li>
+            <li data-id="30">Samsung A32 5G </li>
+            <li data-id="31">Samsung A33</li>
+            <li data-id="32">Samsung A34 </li>
+            <li data-id="33">Samsung A50 </li>
+            <li data-id="34">Samsung A50S </li>
+            <li data-id="35">Samsung A51</li>
+            <li data-id="36">Samsung A52 </li>
+            <li data-id="37">Samsung A53</li>
+            <li data-id="38">Samsung A54 </li>
+            <li data-id="39">Samsung A70 </li>
+            <li data-id="40">Samsung A71 </li>
+            <li data-id="41">Samsung A73 </li>
+            <li data-id="42">Samsung M02 </li>
+            <li data-id="43">Samsung M10</li>
+            <li data-id="44">Samsung M10S</li>
+            <li data-id="45">Samsung M11</li>
+            <li data-id="46">Samsung M12 </li>
+            <li data-id="47">Samsung M13</li>
+            <li data-id="48">Samsung M14 </li>
+            <li data-id="49">Samsung M20 </li>
+            <li data-id="50">Samsung M21</li>
+            <li data-id="51">Samsung M22 </li>
+            <li data-id="52">Samsung M23</li>
+            <li data-id="53">Samsung M31 </li>
+            <li data-id="54">Samsung M51</li>
+            <li data-id="55">Samsung M52</li>
+            <li data-id="56">Samsung M53 </li>
+            <li data-id="57">Samsung M62 </li>
+            <li data-id="58">Samsung S10 Lite</li>
+            <li data-id="59">Samsung S20 FE</li>
+            <li data-id="60">Samsung S20 Plus</li>
+            <li data-id="61">Samsung S21 FE</li>
+            <li data-id="62">Samsung S22 </li>
+            <li data-id="63">Samsung S22 Plus</li>
+            <li data-id="64">Samsung J2 Core</li>
+            <li data-id="65">Samsung J2 Prime </li>
+            <li data-id="66">Samsung J4 </li>
+            <li data-id="67">Samsung J4 Plus</li>
+            <li data-id="68">Samsung J5</li>
+            <li data-id="69">Samsung J6 2018</li>
+            <li data-id="70">Samsung J6 PLUS </li>
+            <li data-id="71">Samsung J7 2016</li>
+            <li data-id="72">Samsung J8 2016 </li>
+            <li data-id="73">Samsung J8</li>
+
+            <!--motorola-->
+            <li data-id="74">Moto G5 Plus </li>
+            <li data-id="75">Moto G5S</li>
+            <li data-id="76">Moto G5S Plus</li>
+        </ul>
+
+        <!-- Botão de mostrar mais/menos -->
+        <button id="toggleListBtn" style="display: none; margin-top: 10px;" onclick="toggleList()">Mostrar mais</button>
+
+        <!-- Área de informações do produto -->
+        <div id="productInfo" style="display: none;">
+            <h3>Informações do Produto</h3>
+            <p id="productName"></p>
+            <p id="compatibleMovies"></p>
+        </div>
+    </div>
+
+    <script>
+        const productData = {
+            /*samsungs*/
+            1: { name: "Samsung A01", compatibleMovies: "Xiaomi mi SE - Mi Play" },
+            2: { name: "Samsung A02", compatibleMovies: "A02S - A03 - A03S - A13 - A23 - A70 - G20 - Moto G9 Play" },
+            3: { name: "Samsu A02s", compatibleMovies: "A02 - A03 - A03S - A13 - A23 - A70 - G20 - Moto G9 Play" },
+            4: { name: "Samsung A03s", compatibleMovies: "A03 - A03 Core - A12 - A13 - A32 5G - M12 - NOTE 9 4G" },
+            5: { name: "Samsung A03 Core", compatibleMovies: "A03-A03S- A12- A13-A70-E20-G10-G20-G30 " },
+            6: { name: "Samsung A03", compatibleMovies: "A03S- A03 Core- A12- A13- A70- M12- G10- G30 " },
+            7: { name: "Samsung A04 ", compatibleMovies: "A03S - A13 - A70 - M12 - G30 - E7 PLUS - E20 - Redmi 9A Sport" },
+            8: { name: "Samsung A5 ", compatibleMovies: "J2 Prime - Grand Prime – J5" },
+            9: { name: "Samsung A7 2016 ", compatibleMovies: "J7 Metal - On7 " },
+            10: { name: "Samsung A7 2018", compatibleMovies: "J4 Plus - J6 Plus- J8 " },
+            11: { name: "Samsung A8 Plus", compatibleMovies: "A6 Plus - J8 - Redmi 5 Plus - Redmi s2 " },
+            12: { name: "Samsung A9 2018", compatibleMovies: "J4 Plus - J6 Plus - J8 - J8 Plus " },
+            13: { name: "Samsung A10 ", compatibleMovies: "A10S-M10-M20-G7 -G7Plus-G8Play-E6s-E6Plus-Redmi8-K22" },
+            14: { name: "Samsung A10S ", compatibleMovies: "A10-M10-M20-G7 -G7Plus-G8Play-E6s-E6Plus-Redmi8-K22" },
+            15: { name: "Samsung A11 ", compatibleMovies: "M11- G8- One Fusion Plus- One Hyper- Note9 5G " },
+            16: { name: "Samsung A12 ", compatibleMovies: "A20S- A32 5G- M12- Note 94G- K50s " },
+            17: { name: "Samsung A13 ", compatibleMovies: "A03- A03S- A03 Core- A12- A32 5G- A42- M12- M13- G9Play- G10- G20 - G30" },
+            18: { name: "Samsung A14 ", compatibleMovies: "M14 - A22 5G" },
+            19: { name: "Samsung A20", compatibleMovies: "A30- A31 - A50- A50s- M31 - G8 Plus - Note 7- Note 8- K40s " },
+            20: { name: "Samsung A20S ", compatibleMovies: "A12 - A70 - One Fusion - K41s - K50s" },
+            21: { name: "Samsung A21", compatibleMovies: "A21S" },
+            22: { name: "Samsung A21S ", compatibleMovies: "A21 " },
+            23: { name: "Samsung A22 4G", compatibleMovies: "A31 - A32 - A33 - M31 - M32" },
+            24: { name: "Samsung A22 5G", compatibleMovies: "A23- A23 5G- A32 5G" },
+            25: { name: "Samsung A23 ", compatibleMovies: "A12 - A22 5G - A23 5G - A32 5G - A70 " },
+            26: { name: "Samsung A30 ", compatibleMovies: "A20- A31- A50- A50s- M31 - G8 Plus- Note 7- Note 8-Redmi 8- K40s" },
+            27: { name: "Samsung A30s ", compatibleMovies: "A20- A22- A30- A50- M31- G8 Plus- Note 7- Redmi 8-K40s " },
+            28: { name: "Samsung A31 ", compatibleMovies: "A20- A30- A50- M31- G8Plus- Note8 " },
+            29: { name: "Samsung A32 ", compatibleMovies: "A22 - A33 " },
+            30: { name: "Samsung A32 5G", compatibleMovies: "A12- A20s- Note 9- K50s " },
+            31: { name: "Samsung A33 ", compatibleMovies: "A32" },
+            32: { name: "Samsung A34 ", compatibleMovies: "G13- G23- G73 " },
+            33: { name: "Samsung A50 ", compatibleMovies: "A30- A20- A22- A50S- M31" },
+            34: { name: "Samsung A50S", compatibleMovies: "A20- A30- A31- A50- M31- K40s" },
+            35: { name: "Samsung A51 ", compatibleMovies: "A52 - A52s - A52 5G - S20 Fe - Note 10 - Note 11 " },
+            36: { name: "Samsung A52 ", compatibleMovies: "A51- A52S- A52 5G- S20 FE- Note 10- Note 1" },
+            37: { name: "Samsung A53 ", compatibleMovies: "A52- A52S " },
+            38: { name: "Samsung A54 ", compatibleMovies: "S21 FE " },
+            39: { name: "Samsung A70", compatibleMovies: "A02- A02s- A03- A905G" },
+            40: { name: "Samsung A71 ", compatibleMovies: "A72- M51- M62- F62- Note 9S- Note 10 Lite- Note 11 Pro " },
+            41: { name: "Samsung A73 ", compatibleMovies: "Note 10 Pro - Note 1 pro " },
+            42: { name: "Samsung M02 ", compatibleMovies: "A12 - A20s - A32 5G - M12 - Note 9 4G - K50s" },
+            43: { name: "Samsung M10 ", compatibleMovies: "M20" },
+            44: { name: "Samsung M10S ", compatibleMovies: "A10s- A20- A30S- G8 Plus- G8 Play - Note 7- Note 8" },
+            45: { name: "Samsung M11 ", compatibleMovies: "A11- G8- One Fusion Plus- One Hyper - Note 9 5G " },
+            46: { name: "Samsung M12 ", compatibleMovies: "A12 - A20S - A32 5G - Note 9 4G - K50s " },
+            47: { name: "Samsung M13 ", compatibleMovies: "A13- A03- A03S- A03 Core- A12 - A32 5G - A42- M12 - G9 Play- G10" },
+            48: { name: "Samsung M14 ", compatibleMovies: "A14 " },
+            49: { name: "Samsung M20", compatibleMovies: "M10 " },
+            50: { name: "Samsung M21", compatibleMovies: "M21S- A20- A30S- G8Plus- Note8 " },
+            51: { name: "Samsung M22 ", compatibleMovies: "M31- A20- A30-A30S- A31" },
+            52: { name: "Samsung M23 ", compatibleMovies: "A03 - A03S - A13 - A23- M33 - F23 - G10 - G20 - G30" },
+            53: { name: "Samsung M31 ", compatibleMovies: "A20- A30- A30S- A31- M22 " },
+            54: { name: "Samsung M51", compatibleMovies: "Redmi Note 1 Pro - Redmi Note 1 Pro Plus - A71 " },
+            55: { name: "Samsung M52 ", compatibleMovies: "M53- A71- Note 1 pro " },
+            56: { name: "Samsung M53 ", compatibleMovies: "M52- A71- Note 1 Pro " },
+            57: { name: "Samsung M62 ", compatibleMovies: "F62 " },
+            58: { name: "Samsung S10 Lite ", compatibleMovies: "Poco M3 Pro " },
+            59: { name: "Samsung S20 FE", compatibleMovies: "A51 - A52- A52s- Note 10 4G - Note 1" },
+            60: { name: "Samsung S20 Plus", compatibleMovies: "Note 10T" },
+            61: { name: "Samsung S21 FE", compatibleMovies: "S22 Plus " },
+            62: { name: "Samsung S22 ", compatibleMovies: "A54 " },
+            63: { name: "Samsung S22 Plus ", compatibleMovies: "S21 FE" },
+            64: { name: "Samsung J2 Core", compatibleMovies: "Lenovo C2 - Moto C- Moto C Plus" },
+            65: { name: "Samsung J2 Prime ", compatibleMovies: "J3 2016 - J5 - A5 2015 " },
+            66: { name: "Samsung J4", compatibleMovies: "J4 2018" },
+            67: { name: "Samsung J4 Plus ", compatibleMovies: "J4 Core - J6 Plus - J8 - A6 Plus - A8 " },
+            68: { name: "Samsung J5", compatibleMovies: "J2 Prime- J3 " },
+            69: { name: "Samsung J6 2018 ", compatibleMovies: "A8 - A8 2018- Zenfone Live" },
+            70: { name: "Samsung J6 PLUS ", compatibleMovies: "J4 PLUS -  J8 " },
+            71: { name: "Samsung J7 2016 ", compatibleMovies: "J7 Metal - On 7 - A7" },
+            72: { name: "Samsung J8 2016 ", compatibleMovies: "A8Plus- MiA2- RedmiS2- Redmi5Plus- Note 5 Plus " },
+            73: { name: "Samsung J8", compatibleMovies: "J4 Plus – J6 Plus – J4 Core " },
+
+            /*Motorolas*/
+            74: { name: "Moto G5 Plus ", compatibleMovies: "Moto G5S" },
+            75: { name: "Moto G5S", compatibleMovies: "Moto G5 Plus" },
+            76: { name: "Moto G5S Plus", compatibleMovies: "E4 Plus" },
+        };
+
+        function searchItem() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+            const errorMessage = document.getElementById("errorMessage");
+            const notFoundMessage = document.getElementById("notFoundMessage");
+            const itemList = document.getElementById("itemList");
+            const toggleListBtn = document.getElementById("toggleListBtn");
+            const items = document.querySelectorAll("#itemList li");
+
+            if (searchTerm === "") {
+                errorMessage.style.display = "block";
+                notFoundMessage.style.display = "none";
+                itemList.style.display = "none";
+                toggleListBtn.style.display = "none";
+                return;
+            } else {
+                errorMessage.style.display = "none";
+            }
+
+            let found = false;
+            items.forEach(item => {
+                const itemName = item.textContent.toLowerCase();
+                if (itemName.includes(searchTerm)) {
+                    item.style.display = "block";
+                    found = true;
+                } else {
+                    item.style.display = "none";
+                }
+            });
+
+            if (found) {
+                itemList.style.display = "block";
+                toggleListBtn.style.display = "inline-block";
+                toggleListBtn.textContent = "Mostrar menos";
+            } else {
+                itemList.style.display = "none";
+                toggleListBtn.style.display = "none";
+                notFoundMessage.style.display = "block";
+            }
+        }
+
+        function clearInput() {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("itemList").style.display = "none";
+            document.getElementById("toggleListBtn").style.display = "none";
+            document.getElementById("productInfo").style.display = "none";
+            document.getElementById("errorMessage").style.display = "none";
+            document.getElementById("notFoundMessage").style.display = "none";
+        }
+
+        function showProductInfo(productId) {
+            const product = productData[productId];
+            if (product) {
+                document.getElementById("productName").textContent = `Nome: ${product.name}`;
+                document.getElementById("compatibleMovies").textContent = `Películas Compatíveis: ${product.compatibleMovies}`;
+                document.getElementById("productInfo").style.display = "block";
+            }
+        }
+
+        document.getElementById("itemList").addEventListener("click", function(event) {
+            if (event.target.tagName === "LI") {
+                const productId = event.target.getAttribute("data-id");
+                showProductInfo(productId);
+            }
+        });
+
+        function toggleList() {
+            const itemList = document.getElementById("itemList");
+            const toggleListBtn = document.getElementById("toggleListBtn");
+
+            if (itemList.style.display === "none") {
+                itemList.style.display = "block";
+                toggleListBtn.textContent = "Mostrar menos";
+            } else {
+                itemList.style.display = "none";
+                toggleListBtn.textContent = "Mostrar mais";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+:root { /* cores */
+    --cor1: rgb(224, 77, 51);
+    --cor1h: rgb(161, 58, 40);
+    --cor2: rgb(255, 255, 0);
+    --cor3: rgb(184, 119, 0);
+    --cor4: rgb(34, 34, 34);
+}
+
+body {
+    background-color: var(--cor4);
+    color: var(--cor4);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Para ocupar toda a altura da tela */
+    margin: 0;
+}
+
+#balao { /* coteudo geral*/
+    position: relative;
+    background-color: var(--cor3);
+    padding: 10px 30px 20px 30px;
+    align-items: center;
+}
+
+input { /* pesquisar */
+    background-color: rgb(104, 104, 104);
+    width: 200px;
+    height: 24px;
+
+    font-size: 17px;
+}
+
+/* A lista de itens inicialmente ficará oculta */
+#itemList { /* itens da lista */
+    display: none; /* A lista começa oculta */
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    width: calc(100% - 10px); /* Mantém a largura do input */
+    border: 1px solid #ccc;
+    max-height: 180px; /* Limite de altura antes do scroll */
+    overflow-y: auto; /* Scroll quando necessário */
+    z-index: 10;
+}
+
+li { /*lista*/
+    padding: 8px;
+    background-color: var(--cor1);
+    border: 1px solid #383838;
+
+    font-size: 1.2em;
+}
+
+li:hover {
+    background-color: var(--cor1h);
+}
+
+#toggleListBtn { /* estilo mostrar mais/menos */
+    background-color: var(--cor2);
+    margin: 10px 0px 10px 0px;
+}
+
+/* Estilo para o botão "X" */
+#clearBtn {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 5px;
+    background-color: var(--cor2);
+    border: 1px solid black;
+    font-size: 16px;
+}
+
+#clearBtn:hover {
+    background-color: #86ffff8e;
+    color: rgb(32, 32, 32);
+}
+
+/* Estilo para o botão de pesquisa */
+#searchBtn {
+    padding: 5px 10px;
+    background-color: var(--cor2);
+    border: 1px solid black;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#searchBtn:hover {
+    background-color: #86ffff8e;
+    color: black;
+}
+
+#productInfo { /* estilos das infos */
+    background-color: var(--cor1);
+    padding: 8px;
+    border: 1px solid black;
+
+    width: 330px; /* Defina um tamanho fixo */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+}
+
+#productName { /* modelo phone*/
+    background-color: var(--cor2);
+    font-size: 1.2em;
+}
+
+#compatibleMovies { /* peliculas compatibles */
+    background-color: var(--cor2);
+    font-size: 1.4em;
+}
+
+/* mensagens */
+
+#errorMessage { /* digite um item*/
+    background-color: var(--cor2);
+    padding-left: 10px;
+    display: none;
+}
+
+#notFoundMessage { /* item nao encontrado */
+    background-color: var(--cor2);
+    padding-left: 10px;
+    display: none;
+}
